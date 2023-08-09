@@ -8,9 +8,12 @@ WORKDIR /app
 COPY . /app
 
 # Install the application dependencies
-RUN pip install -r requirements.txt
+# Change the pip install command to use the --no-cache-dir flag to avoid caching the installation files
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Define the entry point for the container
-CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
+# Change the CMD to provide the argument '0.0.0.0:8000' instead of '127.0.0.1:8000' to allow access from outside the container
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
+# Expose the port 8000
 EXPOSE 8000
