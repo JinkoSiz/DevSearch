@@ -26,6 +26,17 @@ SECRET_KEY = "django-insecure-h_gu28#p9=y9=yo*gs#12&ykz4@^2bt6e90*rr0$6fhv=sf5vj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://devsearch-zpska1977.b4a.run'
+]
+
+CORS_ORIGIN_WHITELIST = (
+    'https://devsearch-zpska1977.b4a.run',
+    'https://devsearch-zpska1977.b4a.run/',
+    'devsearch-zpska1977.b4a.run',
+    'devsearch-zpska1977.b4a.run/'
+)
+
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run/', 'devsearch-zpska1977.b4a.run']
 
 
