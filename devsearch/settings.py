@@ -30,14 +30,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://devsearch-zpska1977.b4a.run'
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'https://devsearch-zpska1977.b4a.run',
-    'https://devsearch-zpska1977.b4a.run/',
-    'devsearch-zpska1977.b4a.run',
-    'devsearch-zpska1977.b4a.run/'
-)
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run/', 'devsearch-zpska1977.b4a.run']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run']
 
 
 # Application definition
