@@ -212,7 +212,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AWS_ACCESS_KEY_ID = 'jinkosiz'
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY_VAL')
+AWS_SECRET_ACCESS_KEY = '1953b273e02cbc5fd3ad39a39af8d777'
 AWS_STORAGE_BUCKET_NAME = '7777fb51-34f4640c-d71e-4ace-b57e-e7997a1f4952'
 AWS_S3_ENDPOINT_URL = 'https://s3.timeweb.com'
 

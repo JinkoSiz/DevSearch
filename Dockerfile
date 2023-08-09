@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Define the entry point for the container
 # Change the CMD to provide the argument '0.0.0.0:8000' instead of '127.0.0.1:8000' to allow access from outside the container
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
 
 # Expose the port 8000
-EXPOSE 8000
+EXPOSE 8080
