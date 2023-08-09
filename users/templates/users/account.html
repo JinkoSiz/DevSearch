@@ -1,0 +1,103 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<!-- Main Section -->
+<main class="settingsPage profile my-md">
+  <div class="container">
+    <div class="layout">
+      <div class="column column--1of3">
+        <div class="card text-center">
+          <div class="card__body dev">
+            <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit-account' %}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+            <img class="avatar avatar--xl dev__avatar" src="{{profile.imageURL}}" />
+            <h2 class="dev__name">{{profile.name}}</h2>
+            <p class="dev__title">{{profile.short_intro}}</p>
+            <p class="dev__location">Based in {{profile.location}}</p>
+            <ul class="dev__social">
+              {% if profile.social_github %}
+              <li>
+                <a title="Github" href="{{ profile.social_github }}" target="_blank"><i
+                    class="fa-brands fa-github fa-2xl"></i></a>
+              </li>
+              {% endif %}
+
+              {% if profile.social_vk %}
+              <li>
+                <a title="VK" href="{{ profile.social_vk }}" target="_blank"><i class="fa-brands fa-vk fa-2xl"></i></a>
+              </li>
+              {% endif %}
+
+              {% if profile.social_telegram %}
+              <li>
+                <a title="Telegram" href="{{ profile.social_telegram }}" target="_blank"><i class="fa-brands fa-telegram fa-2xl"></i></a>
+              </li>
+              {% endif %}
+
+              {% if profile.social_youtube %}
+              <li>
+                <a title="Youtube" href="{{ profile.social_youtube }}" target="_blank"><i class="fa-brands fa-youtube fa-2xl"></i></a>
+              </li>
+              {% endif %}
+
+              {% if profile.social_website %}
+              <li>
+                <a title="Personal Website" href="{{ profile.social_website }}" target="_blank"><i class="fa-solid fa-globe fa-2xl"></i></a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="column column--2of3">
+        <div class="devInfo">
+          <h3 class="devInfo__title">About Me</h3>
+          <p class="devInfo__about">{{profile.bio}}</p>
+        </div>
+        <div class="settings">
+          <h3 class="settings__title">Skills</h3>
+          <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create-skill' %}">Add Skill</a>
+        </div>
+
+        <table class="settings__table">
+          {% for skill in skills %}
+          <tr>
+            <td class="settings__tableInfo">
+              <h4>{{skill.name}}</h4>
+              <p>{{skill.description}}</p>
+            </td>
+            <td class="settings__tableActions">
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-skill' skill.id %}">Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-skill' skill.id %}?next=/account">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <div class="settings">
+          <h3 class="settings__title">Projects</h3>
+          <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create-project' %}">Add Project</a>
+        </div>
+
+        <table class="settings__table">
+          {% for project in projects %}
+          <tr>
+            <td class="settings__thumbnail">
+              <a href="{% url 'project' project.id %}"><img src="{{project.imageURL}}" alt="Project Thumbnail" /></a>
+            </td>
+            <td class="settings__tableInfo">
+              <a href="{% url 'project' project.id %}">{{project.title}}</a>
+              <p>{{project.description|slice:"150"}}</p>
+            </td>
+            <td class="settings__tableActions">
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-project' project.id %}">Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-project' project.id %}?next=/account">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

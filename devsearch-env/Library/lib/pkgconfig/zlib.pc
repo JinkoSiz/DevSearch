@@ -1,0 +1,13 @@
+prefix=C:/devsearch/devsearch-env/Library
+exec_prefix=C:/devsearch/devsearch-env/Library
+libdir=C:/devsearch/devsearch-env/Library/lib
+sharedlibdir=C:/devsearch/devsearch-env/Library/lib
+includedir=C:/devsearch/devsearch-env/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
