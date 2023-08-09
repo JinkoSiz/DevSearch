@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-h_gu28#p9=y9=yo*gs#12&ykz4@^2bt6e90*rr0$6fhv=sf5vj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run/']
 
 
 # Application definition
@@ -210,15 +210,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-""" STORAGES = {"default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"}}
-
-AWS_S3_ENDPOINT_URL = 'https://s3.timeweb.com'
-AWS_S3_REGION_NAME = 'ru-1'
-AWS_S3_ACCESS_KEY_ID = 'jinkosiz'
-AWS_S3_SECRET_ACCESS_KEY = '1953b273e02cbc5fd3ad39a39af8d777'
-AWS_STORAGE_BUCKET_NAME = '7777fb51-34f4640c-d71e-4ace-b57e-e7997a1f4952'
-AWS_S3_ADDRESSING_STYLE = 'auto' """
 
 AWS_ACCESS_KEY_ID = 'jinkosiz'
 AWS_SECRET_ACCESS_KEY = '1953b273e02cbc5fd3ad39a39af8d777'
