@@ -36,6 +36,12 @@ def paginateProjects(request, projects, results):
     return custom_range, projects
 
 
+def searchTags(request):
+    tags = Tag.objects.distinct().all()
+
+    return tags
+
+
 # def searchProjects(request):
 #     search_query = ''
 
