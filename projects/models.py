@@ -10,6 +10,7 @@ from users.models import Profile
 class Project(models.Model):
     owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+    video = models.CharField(max_length=200, null=True, blank=True, default='123')
     description = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default='default.jpg')
     demo_link = models.CharField(max_length=2000, null=True, blank=True)
@@ -19,6 +20,10 @@ class Project(models.Model):
     vote_ratio = models.IntegerField(default=0, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    social_telegram = models.CharField(max_length=200, blank=True, null=True)
+    social_x = models.CharField(max_length=200, blank=True, null=True)
+    social_discord = models.CharField(max_length=200, blank=True, null=True)
+    social_web = models.CharField(max_length=200, blank=True, null=True)
 
 
     def __str__(self):
