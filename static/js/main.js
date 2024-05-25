@@ -58,14 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     if(openPopupBtn != null) {
-        openPopupBtn.addEventListener('click', () => {
+        openPopupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popup.classList.add('active');
             bgPopup.classList.add('active');
         })
     }
 
     if(resetBtn != null) {
-        resetBtn.addEventListener('click', () => {
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
