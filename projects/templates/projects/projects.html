@@ -73,9 +73,6 @@
 							{% for tag in project.tags.all %}
 								<div class="tags-item">{{tag}}</div>
 							{% endfor %}
-							{% for tag in project.tags.all %}
-								<div class="tags-item">{{tag}}</div>
-							{% endfor %}
 						</div>
 					</a>
 				</div>
@@ -104,11 +101,6 @@
 		</svg>
 	</a>
 	</div>
-	<div class="tag">
-		{% for tag in project.tags.all %}
-		<div class="tags-item">{{tag}}</div>
-		{% endfor %}
-	</div>
 	
 </main>
 
@@ -127,7 +119,7 @@
 				<input name="search_query" type="text" placeholder="Search" class="filter-popup-input">
 			</div>
 			<div class="filter-popup-value-block">
-			{% for tag in project.tags.all %} 
+			{% for tag in tags %} 
 				<button type="submit" value="{{tag}}" class="filter-popup-value-item">
 					<div class="filter-popup-value-item-img">
 						<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
