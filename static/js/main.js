@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         popupFilterItem = document.querySelectorAll('.filter-popup-value-item'),
         resetBtn = document.querySelector('.filter-popup-reset'),
         searcPanel = document.querySelector('.filter-popup-input'),
+        searchForPush = document.querySelector('.filter-popup-input-secret'),
         popup = document.querySelector('.filter-popup');
 
     var pushValues = [];
@@ -102,6 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
+                searchForPush.value = pushValues.join(' ');
+                console.log(searchForPush.value);
             })
         }
     })
@@ -135,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    //SLIDER FOR TABS
 
     const slider = document.querySelector('.slider-tabs-block-visible'),
           slides = Array.from(document.querySelectorAll('.slider-tabs-item'))
@@ -177,8 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         })
     }
-
-    
 
     window.oncontextmenu = function (event) {
         event.preventDefault();
