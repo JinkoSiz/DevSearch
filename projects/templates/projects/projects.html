@@ -119,8 +119,8 @@
 				<input name="search_query" type="text" placeholder="Search" class="filter-popup-input">
 			</div>
 			<div class="filter-popup-value-block">
-			{% for tag in tags %} 
-				<button type="submit" value="{{tag}}" class="filter-popup-value-item">
+			{% for tag in tags %}
+				<div value="{{tag}}" class="filter-popup-value-item">
 					<div class="filter-popup-value-item-img">
 						<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
 							xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -138,7 +138,7 @@
 					</div>
 					<div class="filter-popup-value-item-text">{{tag}}</div>
 					<div class="filter-popup-value-item-count">17</div>
-				</button>
+				</div>
 			{% endfor %}
 			</div>
 			<div class="filter-popup-actions">

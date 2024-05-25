@@ -54,24 +54,32 @@ document.addEventListener('DOMContentLoaded', () => {
         bgPopup = document.querySelector('.filter-popup-bg'),
         popupFilterItem = document.querySelectorAll('.filter-popup-value-item'),
         resetBtn = document.querySelector('.filter-popup-reset'),
+        searcPanel = document.querySelector('.filter-popup-input'),
         popup = document.querySelector('.filter-popup');
 
 
     if(openPopupBtn != null) {
-        openPopupBtn.addEventListener('click', () => {
+        openPopupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popup.classList.add('active');
             bgPopup.classList.add('active');
         })
     }
 
     if(resetBtn != null) {
-        resetBtn.addEventListener('click', () => {
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
         })
     }
-    
+
+    searcPanel.addEventListener('input', (e) => {
+        e.preventDefault();
+        popupFilterItem.forEach(item)
+        
+    })
 
     document.addEventListener('click', (e) => {
         e.preventDefault;
