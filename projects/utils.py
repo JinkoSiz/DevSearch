@@ -67,7 +67,7 @@ def searchProjects(request):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query').strip()
 
-    tag_list = [tag.strip() for tag in search_query.split(', ') if tag.strip()]
+    tag_list = [tag.strip() for tag in re.split('[ ,]+', search_query) if tag.strip()]
 
     projects = Project.objects.distinct()
     if tag_list:

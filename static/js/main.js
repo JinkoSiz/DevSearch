@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searcPanel.addEventListener('input', (e) => {
         e.preventDefault();
+        popupFilterItem.forEach(item)
         
     })
 
