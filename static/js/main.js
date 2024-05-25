@@ -2,6 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
+
     let searchForm = document.getElementById('searchForm')
     let pageLinks = document.getElementsByClassName('page-link')
     //const searchForm = document.querySelector('#searchForm')
@@ -61,6 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var pushValues = [];
 
+    const savedValues = JSON.parse(localStorage.getItem('pushValues')) || [];
+    pushValues = savedValues;  // <--- добавлено
+    popupFilterItem.forEach(item => {
+        if (savedValues.includes(item.dataset.net)) {
+            item.classList.add('active');
+        }
+    });
+    searchForPush.value = pushValues.join(' ');
+
     if(openPopupBtn != null) {
         openPopupBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -75,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
+            localStorage.removeItem('pushValues');
             pushValues = [];
+            console.log(pushValues);
         })
     }
 
@@ -108,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }
     })
+
+    acceptPopupBtn.addEventListener('click', (e) => {  // <--- добавлено
+        localStorage.setItem('pushValues', JSON.stringify(pushValues));  // <--- добавлено
+    });
 
     HTMLElement.prototype.getNodesByText = function (text) {
         const expr = `.//*[text()[contains(
