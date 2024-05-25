@@ -1,6 +1,7 @@
-from .models import Project, Tag
+from .models import Project, Tag, Network
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+import re
 
 
 def paginateProjects(request, projects, results):
@@ -36,19 +37,46 @@ def paginateProjects(request, projects, results):
     return custom_range, projects
 
 
+def searchTags(request):
+    tags = Tag.objects.distinct().all()
+
+    return tags
+
+
+def searchNetworks(request):
+    networks = Network.objects.distinct().all()
+
+    return networks
+
+# def searchProjects(request):
+#     search_query = ''
+
+#     if request.GET.get('search_query'):
+#         search_query = request.GET.get('search_query')
+
+#     tags = Tag.objects.filter(name__icontains=search_query)
+
+#     projects = Project.objects.distinct(). filter(
+#         Q(title__icontains=search_query) |
+#         Q(description__icontains=search_query) |
+#         Q(owner__name__icontains=search_query) |
+#         Q(tags__in=tags)
+#     )
+
+#     return projects, search_query
+
+
 def searchProjects(request):
     search_query = ''
 
     if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
+        search_query = request.GET.get('search_query').strip()
 
-    tags = Tag.objects.filter(name__icontains=search_query)
+    tag_list = [tag.strip() for tag in re.split('[ ,]+', search_query) if tag.strip()]
 
-    projects = Project.objects.distinct(). filter(
-        Q(title__icontains=search_query) |
-        Q(description__icontains=search_query) |
-        Q(owner__name__icontains=search_query) |
-        Q(tags__in=tags)
-    )
+    projects = Project.objects.distinct()
+    if tag_list:
+        for tag in tag_list:
+            projects = projects.filter(tags__name__icontains=tag)
 
     return projects, search_query
