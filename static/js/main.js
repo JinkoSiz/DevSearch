@@ -52,26 +52,31 @@ document.addEventListener('DOMContentLoaded', () => {
         closePopupBtn = document.querySelector('.filter-popup-close'),
         acceptPopupBtn = document.querySelector('.filter-popup-accept'),
         bgPopup = document.querySelector('.filter-popup-bg'),
+        popupFilterList = document.querySelector('.filter-popup-value-block'),
         popupFilterItem = document.querySelectorAll('.filter-popup-value-item'),
         resetBtn = document.querySelector('.filter-popup-reset'),
+        searcPanel = document.querySelector('.filter-popup-input'),
         popup = document.querySelector('.filter-popup');
 
+    var pushValues = [];
 
     if(openPopupBtn != null) {
-        openPopupBtn.addEventListener('click', () => {
+        openPopupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popup.classList.add('active');
             bgPopup.classList.add('active');
         })
     }
 
     if(resetBtn != null) {
-        resetBtn.addEventListener('click', () => {
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
+            pushValues = [];
         })
     }
-    
 
     document.addEventListener('click', (e) => {
         e.preventDefault;
@@ -85,9 +90,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     popupFilterItem.forEach(item => {
         if (item != null) {
-            item.addEventListener('click', () => item.classList.toggle('active'))
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+                if (item.classList.contains('active')) {
+                    pushValues.push(item.dataset.net);
+                } else {
+                    for (let i = 0, len = pushValues.length; i < len; i++) {
+                        if (pushValues[i] === item.dataset.net) {
+                            pushValues.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            })
         }
     })
+
+    HTMLElement.prototype.getNodesByText = function (text) {
+        const expr = `.//*[text()[contains(
+        translate(.,
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+          'abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+        ),
+        '${text.toLowerCase()}'
+        )]]`;    /**/
+        const nodeSet = document.evaluate(expr, this, null,
+            XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+            null);
+        return Array.from({ length: nodeSet.snapshotLength },
+            (v, i) => nodeSet.snapshotItem(i)
+        );
+    };
+
+
+    searcPanel.addEventListener('input', e => {
+        popupFilterItem.forEach(item => {
+            item.classList.remove('search-result')
+        });
+        const searchStr = popupFilterList.dataset.search = e.target.value.trim();
+        if (!searchStr.length) return;
+        for (const el of popupFilterList.getNodesByText(searchStr)) {
+            const card = el.closest('.filter-popup-value-item');
+            if (card) card.classList.add('search-result');
+        }
+    });
 
 
     const slider = document.querySelector('.slider-tabs-block-visible'),
