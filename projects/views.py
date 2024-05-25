@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Project, Tag
 from .forms import ProjectForm, ReviewForm
-from .utils import searchProjects, paginateProjects, searchTags
+from .utils import searchProjects, paginateProjects, searchTags, searchNetworks
 
 # Create your views here.
 
