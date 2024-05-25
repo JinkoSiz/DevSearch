@@ -13,9 +13,10 @@ from .utils import searchProjects, paginateProjects, searchTags
 def projects(request):
     projects, search_query = searchProjects(request)
     tags = searchTags(request)
+    networks = searchNetworks(request)
     custom_range, projects = paginateProjects(request, projects, 10000)
 
-    context = {'projects': projects, 'search_query': search_query, 'custom_range': custom_range, 'html_name': 'projects', 'tags': tags}
+    context = {'projects': projects, 'search_query': search_query, 'custom_range': custom_range, 'html_name': 'projects', 'tags': tags, 'networks': networks}
     return render(request, 'projects/projects.html', context)
 
 

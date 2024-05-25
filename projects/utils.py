@@ -1,4 +1,4 @@
-from .models import Project, Tag
+from .models import Project, Tag, Network
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import re
@@ -43,6 +43,11 @@ def searchTags(request):
     return tags
 
 
+def searchNetworks(request):
+    networks = Network.objects.distinct().all()
+
+    return networks
+
 # def searchProjects(request):
 #     search_query = ''
 
@@ -73,12 +78,5 @@ def searchProjects(request):
     if tag_list:
         for tag in tag_list:
             projects = projects.filter(tags__name__icontains=tag)
-
-    # if search_query:
-    #     projects = projects.filter(
-    #         Q(title__icontains=search_query) |
-    #         Q(description__icontains=search_query) |
-    #         Q(owner__name__icontains=search_query)
-    #     )
 
     return projects, search_query
