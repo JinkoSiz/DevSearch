@@ -116,7 +116,8 @@
 					<path d="M9.57129 9.57153L12.9997 13" stroke="#BEBEBE" stroke-miterlimit="10"
 						stroke-linecap="round" />
 				</svg>
-				<input autocomplete="off" name="search_query" type="search" placeholder="Search" class="filter-popup-input">
+				<input autocomplete="off" type="search" placeholder="Search" class="filter-popup-input">
+				<input autocomplete="off" name="search_query" type="hidden" placeholder="Search" class="filter-popup-input-secret">
 			</div>
 			<div class="filter-popup-value-block">
 			{% for network in networks %}
