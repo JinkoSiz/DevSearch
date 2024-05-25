@@ -241,8 +241,13 @@ h1 {
 }
 
 .filter-popup-value-item-img {
-    width: auto;
+    width: 18px;
     height: 18px;
+}
+
+.filter-popup-value-item-img img {
+    width: 100%;
+    height: 100%;
 }
 
 .filter-popup-value-item-text,
