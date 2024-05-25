@@ -96,3 +96,11 @@ class Network(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.featured_image.url
+        except:
+            url = '/static/images/default.jpg'
+        return url
