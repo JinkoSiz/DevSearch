@@ -16,7 +16,6 @@ appdirs==1.4.4
 argon2-cffi @ file:///opt/conda/conda-bld/argon2-cffi_1645000214183/work
 argon2-cffi-bindings @ file:///C:/ci_311/argon2-cffi-bindings_1676424443321/work
 arrow @ file:///C:/ci_311/arrow_1678249767083/work
-asgiref==3.8.1
 astroid @ file:///C:/ci_311/astroid_1678740610167/work
 astropy @ file:///C:/ci_311_rebuilds/astropy_1678996071858/work
 asttokens @ file:///opt/conda/conda-bld/asttokens_1646925590279/work
