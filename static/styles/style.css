@@ -221,6 +221,8 @@ h1 {
     flex-wrap: wrap;
     align-items: center;
     margin: 14px -6px 14px -6px;
+    max-height: 250px;
+    overflow-y: scroll;
 }
 
 .filter-popup-value-item {
@@ -320,6 +322,10 @@ h1 {
 .filter-popup-value-item.active .filter-popup-value-item-text {
     color: #0F0F0F;
     transition: .2s all;
+}
+
+[data-search]:not([data-search=""]) .filter-popup-value-item:not(.search-result) {
+    display: none;
 }
 
 .projects-list {
