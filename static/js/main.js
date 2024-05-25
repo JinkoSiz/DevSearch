@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bgPopup = document.querySelector('.filter-popup-bg'),
         popupFilterItem = document.querySelectorAll('.filter-popup-value-item'),
         resetBtn = document.querySelector('.filter-popup-reset'),
+        searcPanel = document.querySelector('.filter-popup-input'),
         popup = document.querySelector('.filter-popup');
 
 
@@ -73,7 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
     }
-    
+
+    searcPanel.addEventListener('input', (e) => {
+        e.preventDefault();
+        
+    })
 
     document.addEventListener('click', (e) => {
         e.preventDefault;
