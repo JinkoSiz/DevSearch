@@ -522,6 +522,10 @@ iframe {
     color: #BEBEBE;
 }
 
+.hide {
+    display: none;
+}
+
 /* .center {
     justify-content: center !important;
     align-content: inherit !important;
