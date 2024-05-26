@@ -5,7 +5,6 @@ import re
 
 
 def paginateProjects(request, projects, results):
-
     page = request.GET.get('page')
     paginator = Paginator(projects, results)
 
@@ -33,7 +32,7 @@ def paginateProjects(request, projects, results):
         rightIndex = paginator.num_pages + 1
 
     custom_range = range(leftIndex, rightIndex)
-    
+
     return custom_range, projects
 
 
@@ -47,6 +46,7 @@ def searchNetworks(request):
     networks = Network.objects.distinct().all()
 
     return networks
+
 
 # def searchProjects(request):
 #     search_query = ''
@@ -66,17 +66,39 @@ def searchNetworks(request):
 #     return projects, search_query
 
 
+# def searchProjects(request):
+#     search_query = ''
+#
+#     if request.GET.get('search_query'):
+#         search_query = request.GET.get('search_query').strip()
+#
+#     tag_list = [tag.strip() for tag in re.split('[ ,]+', search_query) if tag.strip()]
+#
+#     projects = Project.objects.distinct()
+#     if tag_list:
+#         for tag in tag_list:
+#             projects = projects.filter(tags__name__icontains=tag)
+#
+#     return projects, search_query
+
+
 def searchProjects(request):
     search_query = ''
 
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query').strip()
 
-    tag_list = [tag.strip() for tag in re.split('[ ,]+', search_query) if tag.strip()]
+    criteria = [item.strip() for item in re.split('[ ,]+', search_query) if item.strip()]
 
     projects = Project.objects.distinct()
-    if tag_list:
-        for tag in tag_list:
-            projects = projects.filter(tags__name__icontains=tag)
+    if criteria:
+        tag_queries = [Q(tags__name__icontains=item) for item in criteria]
+        network_queries = [Q(networks__name__icontains=item) for item in criteria]
+
+        query = Q()
+        for q in tag_queries + network_queries:
+            query |= q
+
+        projects = projects.filter(query)
 
     return projects, search_query
