@@ -526,6 +526,30 @@ iframe {
     display: none;
 }
 
+.info-block-title-filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.info-block-filters-img {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: center;
+    border-radius: 39px;
+    background: var(--grey-bg-filters, #2F3030);
+    width: auto;
+    margin: 0 -2px;
+}
+
+.info-block-filters img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 2px;
+}
+
 /* .center {
     justify-content: center !important;
     align-content: inherit !important;
