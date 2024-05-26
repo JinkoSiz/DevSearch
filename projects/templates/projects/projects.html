@@ -7,11 +7,10 @@
 		<div class="slider-tabs">
 			<div class="slider-tabs-block">
 				<div class="slider-tabs-block-visible">
-					<div class="slider-tabs-item">all</div>
-					<div class="slider-tabs-item">Clicks</div>
-					<div class="slider-tabs-item">Games</div>
-					<div class="slider-tabs-item">Miners</div>
-					<div class="slider-tabs-item">NFT</div>
+					<div class="slider-tabs-item active" data-tab="all">All</div>
+					{% for tag in tags %}
+					<div class="slider-tabs-item" data-tab="{{tag}}">{{tag}}</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -61,7 +60,7 @@
 		<div class="projects-list">
 			<div class="row">
 				{% for project in projects %}
-				<div class="col-6">
+				<div class="col-6 projects-list-wrapper {% for tag in project.tags.all %}{{tag}} {% endfor %}">
 					<a href="{% url 'project' project.id %}" class="projects-list-item">
 						<div class="projects-list-item-header">
 							<div class="projects-list-item-img">
