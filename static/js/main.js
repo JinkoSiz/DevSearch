@@ -2,6 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
+
     let searchForm = document.getElementById('searchForm')
     let pageLinks = document.getElementsByClassName('page-link')
     //const searchForm = document.querySelector('#searchForm')
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+  //POPUP MODUL
 
     const openPopupBtn = document.querySelector('#popupBtn'),
         closePopupBtn = document.querySelector('.filter-popup-close'),
@@ -60,6 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
         popup = document.querySelector('.filter-popup');
 
     var pushValues = [];
+
+    const savedValues = JSON.parse(localStorage.getItem('pushValues')) || [];
+    pushValues = savedValues;  // <--- добавлено
+    popupFilterItem.forEach(item => {
+        if (savedValues.includes(item.dataset.net)) {
+            item.classList.add('active');
+        }
+    });
+    searchForPush.value = pushValues.join(' ');
 
     if(openPopupBtn != null) {
         openPopupBtn.addEventListener('click', (e) => {
@@ -75,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
+            localStorage.removeItem('pushValues');
             pushValues = [];
+            console.log(pushValues);
         })
     }
 
@@ -109,6 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    acceptPopupBtn.addEventListener('click', (e) => {  // <--- добавлено
+        localStorage.setItem('pushValues', JSON.stringify(pushValues));  // <--- добавлено
+    });
+
     HTMLElement.prototype.getNodesByText = function (text) {
         const expr = `.//*[text()[contains(
         translate(.,
@@ -138,10 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    //SLIDER FOR TABS
+
+
+
+    //SLIDER
 
     const slider = document.querySelector('.slider-tabs-block-visible'),
-          slides = Array.from(document.querySelectorAll('.slider-tabs-item'))
+          slides = Array.from(document.querySelectorAll('.slider-tabs-item')),
+          contentItem = document.querySelectorAll('.projects-list-wrapper');
+
 
     let isDragging = false,
         startPos = 0,
@@ -176,7 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
             slide.addEventListener('click', (e) => {
                 if(!isDragging) {
                     removeClass();
+
                     slide.classList.add('active');
+
+                    let itemClass = e.target.dataset.tab;
+
+                    if (itemClass === 'all') {
+                        contentItem.forEach(item  => {
+                            item.classList.remove('hide')
+                        });
+                    } else {
+                        contentItem.forEach(item  => {
+                            item.classList.remove('hide')
+                            if(!item.classList.contains(itemClass)) {
+                                item.classList.add('hide');
+                            }
+                        });
+                    }
                 }
             });
         })
@@ -235,6 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setSliderPosition();
     }
 
+
+
+//LIKE BTN
     const likeBtn = document.querySelector('.like');
 
     if (likeBtn != null) {
@@ -243,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
             likeBtn.classList.toggle('active');
         });
     }
+
 
 })
 
