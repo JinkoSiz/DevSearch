@@ -34,7 +34,12 @@
 				<div class="info-block-title-filters">
 					<h2 class="info-block-title">{{project.title}}</h2>
 					<div class="info-block-filters">
-						<!-- some tags -->
+						<div class="info-block-filters-img">
+							{% for network in project.networks.all %}
+							<img src="{{network.imageURL}}" alt="crypto_icon">
+							{% endfor %}
+						</div>
+
 					</div>
 				</div>
 				<div class="info-block-img">

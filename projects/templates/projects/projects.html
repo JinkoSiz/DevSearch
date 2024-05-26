@@ -73,6 +73,11 @@
 								<div class="tags-item">{{tag}}</div>
 							{% endfor %}
 						</div>
+						<div class="filter-tags hide">
+							{% for network in project.networks.all %}
+								<div class="tags-item">{{network}}</div>
+							{% endfor %}
+						</div>
 					</a>
 				</div>
 				{% endfor %}
