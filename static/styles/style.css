@@ -551,11 +551,52 @@ iframe {
     margin: 0 2px;
 }
 
-/* .center {
-    justify-content: center !important;
-    align-content: inherit !important;
+.tools-list-item {
+    border-radius: 15px;
+    border: 1px solid var(--black-stoke-card, #373737);
+    background: var(--black-bg-card, #202020);
+    text-decoration: none;
+    padding: 18px 15px;
+    display: block;
+    margin-top: 10px;
+}
+
+.tools-list-item-header {
     display: flex;
-} */
+    align-items: center;
+}
+
+.tools-list-item-img {
+    display: block;
+    margin-right: 10px;
+    max-height: 20px;
+    max-width: 20px;
+}
+.tools-list-item-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.tools-list-item-title {
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+.tools-list-item-description {
+    color: var(--icon, #BEBEBE);
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 110%;
+    display: block;
+    margin-top: 10px;
+}
+
 
 @media screen and (max-width: 420px) {
     .projects-list-item-img img {
