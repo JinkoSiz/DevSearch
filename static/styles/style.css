@@ -288,6 +288,7 @@ h1 {
     line-height: normal;
     text-transform: capitalize;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .filter-popup-accept {
@@ -539,7 +540,7 @@ iframe {
     justify-content: center;
     border-radius: 39px;
     background: var(--grey-bg-filters, #2F3030);
-    width: auto;
+    width: fit-content;
     margin: 0 -2px;
 }
 

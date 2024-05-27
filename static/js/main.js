@@ -60,12 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
         resetBtn = document.querySelector('.filter-popup-reset'),
         searcPanel = document.querySelector('.filter-popup-input'),
         searchForPush = document.querySelector('.filter-popup-input-secret'),
-        popup = document.querySelector('.filter-popup');
+        popup = document.querySelector('.filter-popup'),
+        archiveBtn = document.querySelector('.archive-btn');
 
     var pushValues = [];
 
     const savedValues = JSON.parse(localStorage.getItem('pushValues')) || [];
-    pushValues = savedValues;  // <--- добавлено
+    pushValues = savedValues;
     popupFilterItem.forEach(item => {
         if (savedValues.includes(item.dataset.net)) {
             item.classList.add('active');
@@ -83,13 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(resetBtn != null) {
         resetBtn.addEventListener('click', (e) => {
-            e.preventDefault();
             popupFilterItem.forEach(item => {
                 item.classList.remove('active');
             })
-            localStorage.removeItem('pushValues');
             pushValues = [];
-            console.log(pushValues);
+            localStorage.removeItem('pushValues');
         })
     }
 
@@ -123,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    acceptPopupBtn.addEventListener('click', (e) => {  // <--- добавлено
-        localStorage.setItem('pushValues', JSON.stringify(pushValues));  // <--- добавлено
+    acceptPopupBtn.addEventListener('click', (e) => {
+        localStorage.setItem('pushValues', JSON.stringify(pushValues));
     });
 
     HTMLElement.prototype.getNodesByText = function (text) {
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    //SLIDER
+    //TABS
 
     const slider = document.querySelector('.slider-tabs-block-visible'),
           slides = Array.from(document.querySelectorAll('.slider-tabs-item')),
@@ -171,7 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTranslate = 0,
         prevTranslate = 0,
         animationID = 0,
-        currentIndex = 0
+        currentIndex = 0,
+        sliderWidth = slider.offsetWidth,
+        maxTranslate = sliderWidth / 3,
+        minTranslate = -sliderWidth / 3;
+
+
 
     if (slider != null) {
         slider.addEventListener('touchstart', touchStart(0));
@@ -206,7 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (itemClass === 'all') {
                         contentItem.forEach(item  => {
-                            item.classList.remove('hide')
+                            item.classList.remove('hide');
+                            hideArchive();
                         });
                     } else {
                         contentItem.forEach(item  => {
@@ -214,12 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             if(!item.classList.contains(itemClass)) {
                                 item.classList.add('hide');
                             }
+                            hideArchive();
                         });
                     }
                 }
             });
         })
     }
+
+
 
     window.oncontextmenu = function (event) {
         event.preventDefault();
@@ -233,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function touchStart(index) {
         return function (event) {
+            maxTranslate = sliderWidth / 3;
+            minTranslate = -sliderWidth / 3;
             currentIndex = index;
             startPos = getPositionX(event);
             isDragging = true;
@@ -253,6 +263,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDragging) {
             const currentPosition = getPositionX(event);
             currentTranslate = prevTranslate + currentPosition - startPos;
+            if (currentTranslate < minTranslate) {
+                currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3;
+            } else if (currentTranslate > maxTranslate) {
+                currentTranslate = maxTranslate + (currentTranslate - maxTranslate) / 3;
+            }
+
+            setSliderPosition();
+
         }
     }
 
@@ -270,12 +288,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setPositionByIndex() {
+
+        if (currentTranslate < minTranslate) {
+            currentTranslate = minTranslate;
+        } else if (currentTranslate > maxTranslate) {
+            currentTranslate = maxTranslate;
+        }
+
         prevTranslate = currentTranslate;
         setSliderPosition();
     }
 
+//Archive BTN
 
+    archiveBtn.addEventListener('click', (e) => {
+        contentItem.forEach(item => {
+            item.classList.add('hide');
+            if (item.classList.contains('Archive') && item.classList.contains('hide')) {
+                item.classList.remove('hide');
+            }
+        })
+    })
 
+    function hideArchive() {
+        contentItem.forEach(item => {
+            if (item.classList.contains('Archive')) {
+                item.classList.add('hide');
+            }
+        })
+    }
+    hideArchive();
 //LIKE BTN
     const likeBtn = document.querySelector('.like');
 
@@ -285,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             likeBtn.classList.toggle('active');
         });
     }
+
 
 
 })

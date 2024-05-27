@@ -56,10 +56,9 @@
 			</div>
 		</div>
 		{% if project.video %}
-		<iframe width="100%" max-height="184" src="https://www.youtube.com/embed/{{project.video}}"
-			title="YouTube video player" frameborder="0"
+		<iframe width="100%" max-height="184" src="https://www.youtube.com/embed/{{project.video}}" frameborder="0"
 			allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen iv_load_policy="3" showinfo="0"></iframe>
 		{% endif %}
 		<div class="social-links">
 			{% if project.social_telegram %}
