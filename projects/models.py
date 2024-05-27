@@ -123,3 +123,12 @@ class Tools(models.Model):
 
     def __str__(self):
         return self.title
+
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.featured_image.url
+        except:
+            url = '/static/images/default.jpg'
+        return url
