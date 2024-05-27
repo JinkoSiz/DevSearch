@@ -3,9 +3,8 @@
 
 <div class="tools-list">
     <div class="row">
+        {% for tool in tools %}
         <div class="col-6 tools-list-wrapper">
-            {% for tool in tools %}
-            <a href="{% url 'tool' tool.id %}" class="tools-list-item">
                 <div class="tools-list-item-header">
                     <div class="tools-list-item-img">
                         <img src="{{ tool.imageURL }}" alt="">
@@ -14,10 +13,15 @@
                 </div>
                 <div class="tools-list-item-description">
                     {{ tool.description }}
+                    <div class="tools-list-item-title">{{tool.title}}</div>
+                </div>
+                <div class="tools-list-item-description">
+                    {{tool.description}}
                 </div>
             </a>
             {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </div>
 
