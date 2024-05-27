@@ -148,20 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    if ()
-
-    searcPanel.addEventListener('input', e => {
-        popupFilterItem.forEach(item => {
-            item.classList.remove('search-result')
+    if (searcPanel != null) {
+        searcPanel.addEventListener('input', e => {
+            popupFilterItem.forEach(item => {
+                item.classList.remove('search-result')
+            });
+            const searchStr = popupFilterList.dataset.search = e.target.value.trim();
+            if (!searchStr.length) return;
+            for (const el of popupFilterList.getNodesByText(searchStr)) {
+                const card = el.closest('.filter-popup-value-item');
+                if (card) card.classList.add('search-result');
+            }
         });
-        const searchStr = popupFilterList.dataset.search = e.target.value.trim();
-        if (!searchStr.length) return;
-        for (const el of popupFilterList.getNodesByText(searchStr)) {
-            const card = el.closest('.filter-popup-value-item');
-            if (card) card.classList.add('search-result');
-        }
-    });
-
+    }
 
 
 

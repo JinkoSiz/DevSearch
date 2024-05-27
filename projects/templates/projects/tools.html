@@ -5,27 +5,23 @@
     <div class="row">
         {% for tool in tools %}
         <div class="col-6 tools-list-wrapper">
+            <a href="{% url 'tool' tool.id %}" class="tools-list-item">
                 <div class="tools-list-item-header">
                     <div class="tools-list-item-img">
-                        <img src="{{ tool.imageURL }}" alt="">
+                        <img src="{{ tool.imageURL }}" alt="tool-icon">
                     </div>
                     <div class="tools-list-item-title">{{ tool.title }}</div>
                 </div>
                 <div class="tools-list-item-description">
                     {{ tool.description }}
-                    <div class="tools-list-item-title">{{tool.title}}</div>
-                </div>
-                <div class="tools-list-item-description">
-                    {{tool.description}}
                 </div>
             </a>
-            {% endfor %}
         </div>
         {% endfor %}
     </div>
 </div>
 
-<a href="{% url 'tools' %}" class="tools-ico">
+<a href="{% url 'projects' %}" class="tools-ico">
     <svg xmlns="http://www.w3.org/2000/svg" width="112" height="136" viewBox="0 0 112 136" fill="none">
         <g filter="url(#filter0_d_110_1285)">
             <circle cx="68" cy="58" r="34" fill="#0098EB"/>
