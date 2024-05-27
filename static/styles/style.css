@@ -81,7 +81,7 @@ h1 {
 .slider-tabs-block-visible {
     display: flex;
     align-items: center;
-    margin: 10px -8px;
+    margin: 10px -4px;
     position: absolute;
 }
 
@@ -101,7 +101,7 @@ h1 {
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    margin: 0 8px;
+    margin: 0 4px;
     cursor: pointer;
     border: 1px solid var(--white, #2F3030);
 }
@@ -115,7 +115,7 @@ h1 {
     flex-wrap: wrap;
     align-items: center;
     padding: 0;
-    margin: -5px -10px;
+    margin: -5px;
 }
 
 .filter-btns-btn {
@@ -128,7 +128,11 @@ h1 {
     background: var(--white, #EDEDED);
     border: none;
     cursor: pointer;
-    margin: 5px 10px;
+    margin: 5px;
+}
+
+.filter-btns-btn.archive-btn {
+    padding: 10px;
 }
 
 .filter-btns-btn p {
@@ -162,7 +166,7 @@ h1 {
 .filter-popup {
     display: block;
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
@@ -384,7 +388,7 @@ h1 {
 .tags {
     display: flex;
     align-items: center;
-    margin: 0 -8px;
+    margin: 0 -4px;
     margin-top: 10px;
 }
 
@@ -401,7 +405,7 @@ h1 {
     font-weight: 400;
     line-height: normal;
     text-transform: capitalize;
-    margin: 0 8px;
+    margin: 0 4px;
 }
 
 .tools-ico {
@@ -425,6 +429,7 @@ h1 {
     border-radius: 8px;
     border: 1px solid var(--black-stroke-card, #373737);
     background: var(--black-bg-card, #202020);
+    height: 315px;
 }
 
 .info-block-header {
@@ -459,6 +464,7 @@ h2.info-block-title {
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
+    height: 93px;
 }
 
 .info-block-btns {
@@ -559,6 +565,7 @@ iframe {
     padding: 18px 15px;
     display: block;
     margin-top: 10px;
+    min-height: 100px;
 }
 
 .tools-list-item-header {
