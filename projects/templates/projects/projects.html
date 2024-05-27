@@ -1,4 +1,5 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %}
+{% block content %}
 
 <!-- Main Section -->
 <main class="main">
@@ -40,7 +41,7 @@
 					</svg>
 					<p>Избранное</p>
 				</button>
-				<button class="filter-btns-btn">
+				<button class="filter-btns-btn archive-btn">
 					<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g id="&#208;&#176;&#209;&#128;&#209;&#133;&#208;&#184;&#208;&#178;">
 							<path id="Vector" d="M10.1973 5.89746V9.99998L12.7613 12.5641" stroke="#0F0F0F"
@@ -60,7 +61,7 @@
 		<div class="projects-list">
 			<div class="row">
 				{% for project in projects %}
-				<div class="col-6 projects-list-wrapper {% for tag in project.tags.all %}{{tag}} {% endfor %}">
+				<div class="col-6 projects-list-wrapper {% for tag in project.tags.all %}{{tag}} {% endfor %}{% if project.archive %}Archive{% endif %}">
 					<a href="{% url 'project' project.id %}" class="projects-list-item">
 						<div class="projects-list-item-header">
 							<div class="projects-list-item-img">
@@ -84,7 +85,7 @@
 			</div>
 		</div>
 	</section>
-	<a href="#" class="tools-ico">
+	<a href="{% url 'tools' %}" class="tools-ico">
 		<svg xmlns="http://www.w3.org/2000/svg" width="112" height="136" viewBox="0 0 112 136" fill="none">
 			<g filter="url(#filter0_d_40_1623)">
 			  <circle cx="68" cy="58" r="34" fill="#0098EB"/>
@@ -135,7 +136,7 @@
 			{% endfor %}
 			</div>
 			<div class="filter-popup-actions">
-				<button type="reset" class="filter-popup-reset">Сбросить</button>
+				<a href="{% url 'projects' %}" class="filter-popup-reset">Сбросить</a>
 				<button type="submit" class="filter-popup-accept">Готово</button>
 			</div>
 		</form>
