@@ -72,7 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.add('active');
         }
     });
-    searchForPush.value = pushValues.join(' ');
+
+    if (searchForPush != null) {
+        searchForPush.value = pushValues.join(' ');
+    }
 
     if(openPopupBtn != null) {
         openPopupBtn.addEventListener('click', (e) => {
@@ -122,9 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    acceptPopupBtn.addEventListener('click', (e) => {
-        localStorage.setItem('pushValues', JSON.stringify(pushValues));
-    });
+    if (acceptPopupBtn != null) {
+        acceptPopupBtn.addEventListener('click', (e) => {
+            localStorage.setItem('pushValues', JSON.stringify(pushValues));
+        });
+    }
 
     HTMLElement.prototype.getNodesByText = function (text) {
         const expr = `.//*[text()[contains(
@@ -142,6 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     };
 
+
+    if ()
 
     searcPanel.addEventListener('input', e => {
         popupFilterItem.forEach(item => {
