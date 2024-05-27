@@ -99,6 +99,6 @@ def deleteProject(request, pk):
 
 def tools(request):
     tools = Tools.objects.all()
-    context = {'tools': tools}
+    context = {'tools': tools, 'html_name': 'tools'}
 
     return render(request, 'projects/tools.html', context)
