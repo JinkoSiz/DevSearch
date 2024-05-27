@@ -112,7 +112,7 @@ class Network(models.Model):
         return self.project_set.count()
 
 
-class Tools(models.Model):
+class Tool(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default='default.jpg')
@@ -123,3 +123,12 @@ class Tools(models.Model):
 
     def __str__(self):
         return self.title
+
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.featured_image.url
+        except:
+            url = '/static/images/default.jpg'
+        return url
