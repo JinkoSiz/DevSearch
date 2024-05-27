@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Project, Tag
+from .models import Project, Tag, Tools
 from .forms import ProjectForm, ReviewForm
 from .utils import searchProjects, paginateProjects, searchTags, searchNetworks
 
@@ -98,5 +98,7 @@ def deleteProject(request, pk):
 
 
 def tools(request):
+    tools = Tools.objects.all()
+    context = {'tools': tools}
 
-    return render(request, 'projects/tools.html')
+    return render(request, 'projects/tools.html', context)
