@@ -4,17 +4,19 @@
 <div class="tools-list">
     <div class="row">
         <div class="col-6 tools-list-wrapper">
-            <a href="" class="tools-list-item">
+            {% for tool in tools %}
+            <a href="{% url 'tool' tool.id %}" class="tools-list-item">
                 <div class="tools-list-item-header">
                     <div class="tools-list-item-img">
-                        <img src="" alt="">
+                        <img src="{{ tool.imageURL }}" alt="">
                     </div>
-                    <div class="tools-list-item-title">Кошельки</div>
+                    <div class="tools-list-item-title">{{ tool.title }}</div>
                 </div>
                 <div class="tools-list-item-description">
-                    Популярные и проверенные сервисы для хранения и обмена цифровыми активами
+                    {{ tool.description }}
                 </div>
             </a>
+            {% endfor %}
         </div>
     </div>
 </div>
