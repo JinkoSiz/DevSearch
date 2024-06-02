@@ -170,16 +170,20 @@ document.addEventListener('DOMContentLoaded', () => {
           slides = Array.from(document.querySelectorAll('.slider-tabs-item')),
           contentItem = document.querySelectorAll('.projects-list-wrapper');
 
+    if(slider !== null) {
 
-    let isDragging = false,
-        startPos = 0,
-        currentTranslate = 0,
-        prevTranslate = 0,
-        animationID = 0,
-        currentIndex = 0,
-        sliderWidth = slider.offsetWidth,
-        maxTranslate = sliderWidth / 3,
-        minTranslate = -sliderWidth / 3;
+        let isDragging = false,
+            startPos = 0,
+            currentTranslate = 0,
+            prevTranslate = 0,
+            animationID = 0,
+            currentIndex = 0,
+            sliderWidth = slider.offsetWidth,
+            maxTranslate = sliderWidth / 3,
+            minTranslate = -sliderWidth / 3;
+    }
+
+
 
 
 
@@ -208,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
             slide.addEventListener('click', (e) => {
                 if(!isDragging) {
-                    removeClass();
+                    removeClass(slides);
 
                     slide.classList.add('active');
 
@@ -241,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
-    function removeClass() {
-        slides.forEach(item => item.classList.remove('active'));
+    function removeClass(selector) {
+        selector.forEach(item => item.classList.remove('active'));
     }
 
     function touchStart(index) {
@@ -307,14 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Archive BTN
 
-    archiveBtn.addEventListener('click', (e) => {
-        contentItem.forEach(item => {
-            item.classList.add('hide');
-            if (item.classList.contains('Archive') && item.classList.contains('hide')) {
-                item.classList.remove('hide');
-            }
+    if(archiveBtn !== null) {
+        archiveBtn.addEventListener('click', (e) => {
+            contentItem.forEach(item => {
+                item.classList.add('hide');
+                if (item.classList.contains('Archive') && item.classList.contains('hide')) {
+                    item.classList.remove('hide');
+                }
+            })
         })
-    })
+    }
 
     function hideArchive() {
         contentItem.forEach(item => {
@@ -334,7 +340,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const accountTab = document.querySelectorAll('.account-tabs-item'),
+          accountItem = document.querySelectorAll('.account-item');
 
+    accountTab.forEach(item => {
+        item.addEventListener('click', (e) => {
+            removeClass(accountTab);
+
+            item.classList.add('active');
+
+            let itemClass = e.target.dataset.tab;
+
+            accountItem.forEach(item  => {
+                item.classList.remove('hide')
+                if(!item.classList.contains(itemClass)) {
+                    item.classList.add('hide');
+                }
+            });
+        })
+    })
 
 })
 
