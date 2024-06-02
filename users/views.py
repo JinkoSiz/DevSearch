@@ -4,9 +4,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
-from .models import Profile, Skill
+from .models import Profile, Skill, TelegramUser
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from .utils import searchProfiles, paginateProfiles
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import TelegramUserSerializer
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -206,3 +213,47 @@ def createMessage(request, pk):
 
     context = {'recipient': recipient, 'form': form}
     return render(request, 'users/message_form.html', context)
+
+
+class TelegramUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get('user_id')
+        user, created = TelegramUser.objects.get_or_create(user_id=user_id, defaults=request.data)
+        if not created:
+            serializer = TelegramUserSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+        else:
+            serializer = TelegramUserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@csrf_exempt
+def telegram_webhook(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        message = data.get('message', {})
+        user_data = message.get('from', {})
+
+        user_id = user_data.get('id')
+        first_name = user_data.get('first_name')
+        last_name = user_data.get('last_name')
+        username = user_data.get('username')
+
+        user, created = TelegramUser.objects.get_or_create(
+            user_id=user_id,
+            defaults={
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username
+            }
+        )
+
+        if not created:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.username = username
+            user.save()
+
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'failed'}, status=400)

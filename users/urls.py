@@ -1,11 +1,15 @@
 from django.urls import path
 from . import views
+from .views import TelegramUserView, telegram_webhook
 
 
 urlpatterns = [
     path('login/', views.loginUser, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('register/', views.registerUser, name='register'),
+
+    path('api/telegram-user/', TelegramUserView.as_view(), name='telegram-user'),
+    path('webhook/', telegram_webhook, name='telegram-webhook'),
 
     path('', views.profiles, name='profiles'),
     path('profile/<str:pk>/', views.userProfile, name='user-profile'),
