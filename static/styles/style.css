@@ -687,7 +687,7 @@ iframe {
     line-height: 110%;
     margin: 0 4px;
     border: 1px solid var(--grey-bg-filter, #2F3030);
-
+    cursor: pointer;
 }
 
 .account-tabs-item.active {
