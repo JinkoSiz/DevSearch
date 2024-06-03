@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @font-face { 
@@ -18,7 +19,7 @@
     margin: 0 auto;
     background-color: #0F0F0F;
     min-height: 100vh;
-    padding: 0 24px;
+    padding: 0 24px 86px 24px;
 }
 
 .navigation {
@@ -54,10 +55,6 @@
 
 .navigation-block-list-item-link.visout {
     border: none
-}
-
-.project-section {
-    padding-bottom: 100px;
 }
 
 .project-title-block {
@@ -604,6 +601,264 @@ iframe {
     margin-top: 10px;
 }
 
+.accout-header {
+    display: flex;
+    margin-top: 27px;
+}
+
+.account-img {
+    width: 120px;
+    height: 120px;
+    margin-right: 26px;
+    border-radius: 15px;
+    border: 2px solid var(--icon, #BEBEBE);
+    background: url(<path-to-image>) lightgray 0px 0px / 100% 100% no-repeat, url(<path-to-image>) lightgray 50% / cover no-repeat;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.account-username {
+    color: var(--white, #EDEDED);
+    text-align: center;
+    font-family: RoadRadio;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+}
+
+.account-balance {
+    padding: 12px 18px;
+    border-radius: 35px;
+    border: 1.5px solid var(--9747-ff, #FCB602);
+    background: var(--grey-bg-filter, #2F3030);
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+.account-balance span {
+    color: var(--9747-ff, #FCB602);
+    font-weight: 700;
+}
+
+.account-wallet-connect {
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: var(--Style, #0098EB);
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+    outline: none;
+    border: none;
+}
+
+.account-tabs {
+    display: flex;
+    margin: 38px -4px 0 -4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-tabs-item {
+    padding: 10px 18px;
+    border-radius: 35px;
+    background: var(--grey-bg-filter, #2F3030);
+    color: #EDEDED;
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+    margin: 0 4px;
+    border: 1px solid var(--grey-bg-filter, #2F3030);
+
+}
+
+.account-tabs-item.active {
+    border: 1px solid var(--white, #EDEDED);
+    background: var(--black-bg-card, #202020);
+}
+
+.tasks {
+    margin-top: 25px;
+}
+
+.tasks-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+    border: 1px solid var(--black-stroke-card, #373737);
+    background: var(--black-bg-card, #202020);
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.tasks-item-info {
+    display: flex;
+    align-items: center;
+}
+
+.tasks-item-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.tasks-item-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.tasks-item-info-block-title {
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.tasks-item-info-block-account {
+    display: flex;
+    align-items: center;
+}
+
+.tasks-item-info-block-account-img {
+    margin-right: 4px;
+}
+
+.tasks-item-info-block-account-text {
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+.progress {
+    margin-top: 20px;
+}
+
+.progress-item {
+    margin-bottom: 26px;
+    text-align: center;
+}
+
+.progress-item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.progress-item-info {
+    position: absolute;
+    padding: 8px 16px;
+    border-radius: 35px;
+    border: 1.5px solid var(--black-stroke-card, #373737);
+    background: var(--black-bg-card, #202020);
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.leaderboard {
+    margin-top: 14px;
+}
+
+.leaderboard-item {
+    border-radius: 15px;
+    background: var(--grey-bg-filter, #2F3030);
+    padding: 10px;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+}
+
+.your-score {
+    margin-bottom: 6px;
+    border-bottom: 1px solid #2F3030;
+}
+
+.leaderboard-item-state {
+    color: var(--icon, #BEBEBE);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+    margin-right: 10px;
+}
+
+.leaderboard-item-info {
+    display: flex;
+    align-items: center;
+}
+
+.leaderboard-item-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.leaderboard-item-title {
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.leaderboard-item-count {
+    display: flex;
+    align-items: center;
+}
+
+.leaderboard-item-count-img {
+    margin-right: 4px;
+}
+
+.leaderboard-item-count-text {
+    color: var(--white, #EDEDED);
+    font-family: Roboto;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
 
 @media screen and (max-width: 420px) {
     .projects-list-item-img img {
