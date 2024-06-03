@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import TelegramUserSerializer
 import json
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -289,7 +289,7 @@ def telegram_webhook(request):
 
             if request.user.is_authenticated:
                 logger.debug(f"User {request.user.username} is authenticated")
-                return HttpResponseRedirect('/account/')  # Перенаправление на страницу аккаунта
+                return JsonResponse({'status': 'success', 'message': f"User {request.user.username} is authenticated"})
             else:
                 logger.error("Authentication failed")
                 return JsonResponse({'status': 'failed', 'error': 'Authentication failed'}, status=400)
