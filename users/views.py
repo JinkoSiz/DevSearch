@@ -255,5 +255,16 @@ def telegram_webhook(request):
             user.username = username
             user.save()
 
+        django_user, created = User.objects.get_or_create(username=user_id)
+        if created:
+            django_user.first_name = first_name
+            django_user.last_name = last_name
+            django_user.username = user_id
+            django_user.set_unusable_password()
+            django_user.save()
+            Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
+
+        login(request, django_user)
+
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'failed'}, status=400)
