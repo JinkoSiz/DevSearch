@@ -289,7 +289,13 @@ def telegram_webhook(request):
 
             if request.user.is_authenticated:
                 logger.debug(f"User {request.user.username} is authenticated")
-                return JsonResponse({'status': 'success', 'message': f"User {request.user.username} is authenticated"})
+                profile = request.user.profile
+
+                skills = profile.skill_set.all()
+                projects = profile.project_set.all()
+
+                context = {'profile': profile, 'skills': skills, 'projects': projects}
+                return render(request, 'users/account.html', context)
             else:
                 logger.error("Authentication failed")
                 return JsonResponse({'status': 'failed', 'error': 'Authentication failed'}, status=400)
