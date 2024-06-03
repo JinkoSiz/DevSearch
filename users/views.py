@@ -285,8 +285,8 @@ def telegram_webhook(request):
                 Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
 
             login(request, django_user)
+            logger.debug(f"User {django_user.username} logged in")
 
-            # Добавим проверку и сообщение после успешного входа пользователя
             if request.user.is_authenticated:
                 logger.debug(f"User {request.user.username} is authenticated")
                 return JsonResponse({'status': 'success', 'message': f"User {request.user.username} is authenticated"})
