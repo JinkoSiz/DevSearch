@@ -29,7 +29,7 @@
   <h3 align="center">Coin Way</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    An awesome telegram web-app!
     <br />
     <a href="https://web.telegram.org/k/#@Coin_Waybot"><strong>Try it yourself »</strong></a>
     <br />
