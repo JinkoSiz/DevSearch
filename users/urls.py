@@ -7,7 +7,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('register/', views.registerUser, name='register'),
 
-    path('webhook/', views.telegram_webhook, name='telegram-webhook'),
+    path('webhook/', views.telegram_webhook, name='telegram-webhook'),  # Убедитесь, что этот маршрут есть и правильный
 
     path('', views.profiles, name='profiles'),
     path('profile/<str:pk>/', views.userProfile, name='user-profile'),
