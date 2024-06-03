@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/JinkoSiz/Coin-Way">
-    <img src="static/images/CoinWaylogo.jpg" alt="Logo" width="80" height="80">
+    <img src="static/images/CoinWaylogo.jfif" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Coin Way</h3>
@@ -41,10 +41,6 @@
     <a href="https://github.com/JinkoSiz/Coin-Way/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
-
-## Screenshots
-
-![Home Page](static/images/1.jpg "Home Page")
 
 ## Available Commands
 
