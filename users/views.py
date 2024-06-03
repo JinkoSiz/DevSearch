@@ -237,15 +237,28 @@ def telegram_webhook(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            logger.debug(f"Received raw data: {data}")
+
             message = data.get('message', {})
+            if not message:
+                logger.error("No message found in data")
+                return JsonResponse({'status': 'failed', 'error': 'No message found'}, status=400)
+
             user_data = message.get('from', {})
+            if not user_data:
+                logger.error("No user data found in message")
+                return JsonResponse({'status': 'failed', 'error': 'No user data found'}, status=400)
 
             user_id = user_data.get('id')
             first_name = user_data.get('first_name')
             last_name = user_data.get('last_name')
             username = user_data.get('username')
 
-            logger.debug(f"Received data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
+            logger.debug(f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
+
+            if user_id is None:
+                logger.error("User ID is missing")
+                return JsonResponse({'status': 'failed', 'error': 'User ID is missing'}, status=400)
 
             user, created = TelegramUser.objects.get_or_create(
                 user_id=user_id,
