@@ -228,43 +228,54 @@ class TelegramUserView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 @csrf_exempt
 def telegram_webhook(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        message = data.get('message', {})
-        user_data = message.get('from', {})
+        try:
+            data = json.loads(request.body)
+            message = data.get('message', {})
+            user_data = message.get('from', {})
 
-        user_id = user_data.get('id')
-        first_name = user_data.get('first_name')
-        last_name = user_data.get('last_name')
-        username = user_data.get('username')
+            user_id = user_data.get('id')
+            first_name = user_data.get('first_name')
+            last_name = user_data.get('last_name')
+            username = user_data.get('username')
 
-        user, created = TelegramUser.objects.get_or_create(
-            user_id=user_id,
-            defaults={
-                'first_name': first_name,
-                'last_name': last_name,
-                'username': username
-            }
-        )
+            logger.debug(f"Received data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
 
-        if not created:
-            user.first_name = first_name
-            user.last_name = last_name
-            user.username = username
-            user.save()
+            user, created = TelegramUser.objects.get_or_create(
+                user_id=user_id,
+                defaults={
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'username': username
+                }
+            )
 
-        django_user, created = User.objects.get_or_create(username=user_id)
-        if created:
-            django_user.first_name = first_name
-            django_user.last_name = last_name
-            django_user.username = user_id
-            django_user.set_unusable_password()
-            django_user.save()
-            Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
+            if not created:
+                user.first_name = first_name
+                user.last_name = last_name
+                user.username = username
+                user.save()
 
-        login(request, django_user)
+            django_user, created = User.objects.get_or_create(username=user_id)
+            if created:
+                django_user.first_name = first_name
+                django_user.last_name = last_name
+                django_user.username = user_id
+                django_user.set_unusable_password()
+                django_user.save()
+                Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
 
-        return JsonResponse({'status': 'success'})
+            login(request, django_user)
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            logger.error(f"Error in telegram_webhook: {e}")
+            return JsonResponse({'status': 'failed', 'error': str(e)}, status=500)
     return JsonResponse({'status': 'failed'}, status=400)
+
