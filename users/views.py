@@ -286,7 +286,14 @@ def telegram_webhook(request):
 
             login(request, django_user)
 
-            return JsonResponse({'status': 'success'})
+            # Добавим проверку и сообщение после успешного входа пользователя
+            if request.user.is_authenticated:
+                logger.debug(f"User {request.user.username} is authenticated")
+                return JsonResponse({'status': 'success', 'message': f"User {request.user.username} is authenticated"})
+            else:
+                logger.error("Authentication failed")
+                return JsonResponse({'status': 'failed', 'error': 'Authentication failed'}, status=400)
+
         except Exception as e:
             logger.error(f"Error in telegram_webhook: {e}")
             return JsonResponse({'status': 'failed', 'error': str(e)}, status=500)
