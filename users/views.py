@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,6 +14,7 @@ from .serializers import TelegramUserSerializer
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -64,7 +65,7 @@ def registerUser(request):
 
             login(request, user)
             return redirect('edit-account')
-        
+
     else:
         messages.error(request, 'An error has occured!')
 
@@ -131,9 +132,9 @@ def createSkill(request):
             skill.save()
             messages.success(request, 'Skill was added successfully!')
             return redirect('account')
-        
+
     context = {'form': form}
-    return render(request,'users/skill_form.html', context)
+    return render(request, 'users/skill_form.html', context)
 
 
 @login_required(login_url='login')
@@ -147,11 +148,11 @@ def updateSkill(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Skill was updated successfully!')
-            
+
             return redirect('account')
-        
+
     context = {'form': form}
-    return render(request,'users/skill_form.html', context)
+    return render(request, 'users/skill_form.html', context)
 
 
 @login_required(login_url='login')
@@ -232,6 +233,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @csrf_exempt
 def telegram_webhook(request):
     if request.method == 'POST':
@@ -284,24 +286,19 @@ def telegram_webhook(request):
                 django_user.save()
                 Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
 
-            login(request, django_user)
-            logger.debug(f"User {django_user.username} logged in")
+            login_url = f"https://yourdomain.com/telegram-login/{user_id}/"
 
-            if request.user.is_authenticated:
-                logger.debug(f"User {request.user.username} is authenticated")
-                profile = request.user.profile
-
-                skills = profile.skill_set.all()
-                projects = profile.project_set.all()
-
-                context = {'profile': profile, 'skills': skills, 'projects': projects}
-                return render(request, 'users/account.html', context)
-            else:
-                logger.error("Authentication failed")
-                return JsonResponse({'status': 'failed', 'error': 'Authentication failed'}, status=400)
+            return JsonResponse({'status': 'success', 'login_url': login_url})
 
         except Exception as e:
             logger.error(f"Error in telegram_webhook: {e}")
             return JsonResponse({'status': 'failed', 'error': str(e)}, status=500)
     return JsonResponse({'status': 'failed'}, status=400)
 
+
+def telegram_login(request, user_id):
+    telegram_user = get_object_or_404(TelegramUser, user_id=user_id)
+    django_user = get_object_or_404(User, username=telegram_user.user_id)
+
+    login(request, django_user)
+    return redirect('user-profile', pk=django_user.profile.pk)
