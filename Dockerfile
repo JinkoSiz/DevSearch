@@ -1,19 +1,19 @@
-# Use the official Python image as the base image
-FROM python:3.8
+FROM python:3.12-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# Установка необходимых пакетов
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-distutils
 
-# Copy the application files into the working directory
+# Установка зависимостей
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Копирование проекта
 COPY . /app
 
-# Install the application dependencies
-# Change the pip install command to use the --no-cache-dir flag to avoid caching the installation files
-RUN pip install --no-cache-dir -r requirements.txt
+# Установка рабочей директории
+WORKDIR /app
 
-# Define the entry point for the container
-# Change the CMD to provide the argument '0.0.0.0:8000' instead of '127.0.0.1:8000' to allow access from outside the container
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
-
-# Expose the port 8000
-EXPOSE 8080
+# Команда запуска приложения
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
