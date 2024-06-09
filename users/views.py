@@ -284,9 +284,13 @@ def telegram_webhook(request):
                 django_user.username = user_id
                 django_user.set_unusable_password()
                 django_user.save()
-                Profile.objects.create(user=django_user)  # Создаем профиль для нового пользователя
+                Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
+            else:
+                profile = Profile.objects.get(user=django_user)
+                profile.name = username
+                profile.save()
 
-            login_url = f"https://yourdomain.com/telegram-login/{user_id}/"
+            login_url = f"https://devsearch-zpska1977.b4a.run/telegram-login/{user_id}/"
 
             return JsonResponse({'status': 'success', 'login_url': login_url})
 
@@ -301,4 +305,5 @@ def telegram_login(request, user_id):
     django_user = get_object_or_404(User, username=telegram_user.user_id)
 
     login(request, django_user)
+    context = {'user': TelegramUser, 'profile': Profile}
     return redirect('user-profile', pk=django_user.profile.pk)
