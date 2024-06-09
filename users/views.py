@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -205,7 +206,6 @@ def createMessage(request, pk):
 
             if sender:
                 message.name = sender.name
-                message.email = sender.email
 
             message.save()
 
@@ -232,6 +232,24 @@ class TelegramUserView(APIView):
 import logging
 
 logger = logging.getLogger(__name__)
+TELEGRAM_BOT_TOKEN = '7449944814:AAGDq0lhdGiCvc07g5M5GJQ65ZSR1eBCR-4'
+
+
+def get_telegram_user_photo(user_id):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUserProfilePhotos"
+    params = {'user_id': user_id, 'limit': 1}
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        if data['result']['total_count'] > 0:
+            file_id = data['result']['photos'][0][0]['file_id']
+            file_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getFile"
+            response = requests.get(file_url, params={'file_id': file_id})
+            if response.status_code == 200:
+                file_path = response.json()['result']['file_path']
+                photo_url = f"https://api.telegram.org/file/bot{TELEGRAM_BOT_TOKEN}/{file_path}"
+                return photo_url
+    return None
 
 
 @csrf_exempt
@@ -285,10 +303,12 @@ def telegram_webhook(request):
                 django_user.username = user_id
                 django_user.set_unusable_password()
                 django_user.save()
-                Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
+                profile_image = get_telegram_user_photo(user_id)
+                Profile.objects.create(user=django_user, name=username, profile_image=profile_image)  # Создаем профиль для нового пользователя
             else:
                 profile = Profile.objects.get(user=django_user)
                 profile.name = username
+                profile.profile_image = get_telegram_user_photo(user_id)
                 profile.save()
 
             login_url = f"https://devsearch-zpska1977.b4a.run/telegram-login/{user_id}/"
@@ -306,5 +326,4 @@ def telegram_login(request, user_id):
     django_user = get_object_or_404(User, username=telegram_user.user_id)
 
     login(request, django_user)
-    context = {'user': telegram_user, 'profile': django_user}
     return redirect('user-profile', pk=django_user.profile.pk)
