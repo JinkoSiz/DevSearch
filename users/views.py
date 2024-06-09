@@ -81,7 +81,7 @@ def profiles(request):
     return render(request, 'users/profiles.html', context)
 
 
-def userProfile(request, pk):
+def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮДА СМОТРИ
     profile = Profile.objects.get(id=pk)
 
     topSkills = profile.skill_set.exclude(description__exact='')
@@ -256,7 +256,8 @@ def telegram_webhook(request):
             last_name = user_data.get('last_name')
             username = user_data.get('username')
 
-            logger.debug(f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
+            logger.debug(
+                f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
 
             if user_id is None:
                 logger.error("User ID is missing")
@@ -305,5 +306,5 @@ def telegram_login(request, user_id):
     django_user = get_object_or_404(User, username=telegram_user.user_id)
 
     login(request, django_user)
-    context = {'user': TelegramUser, 'profile': Profile}
+    context = {'user': telegram_user, 'profile': django_user}
     return redirect('user-profile', pk=django_user.profile.pk)
